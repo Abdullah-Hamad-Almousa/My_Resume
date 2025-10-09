@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Abdullah Almousa</title>
+    <meta name="description" content="Detailed portfolio of machine learning projects, competitions, and achievements by Abdullah Almousa.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#0B1426',
+                        'teal': '#00D4AA',
+                        'gold': '#FFB800',
+                        'charcoal': '#1A1A1A',
+                        'slate': '#64748B'
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #1A1A1A 0%, #0B1426 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00D4AA 0%, #FFB800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 170, 0.2);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #00D4AA, #FFB800);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 1rem;
+            width: 14px;
+            height: 14px;
+            background: #00D4AA;
+            border-radius: 50%;
+            border: 3px solid #1A1A1A;
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(11, 20, 38, 0.9);
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .performance-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(255, 184, 0, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="text-gray-100 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold">Abdullah Almousa</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="hover:text-teal transition-colors">Home</a>
+                    <a href="#timeline" class="hover:text-teal transition-colors">Timeline</a>
+                    <a href="#malware-detection" class="hover:text-teal transition-colors">Malware Detection</a>
+                    <a href="#competitions" class="hover:text-teal transition-colors">Competitions</a>
+                    <a href="#kaggle" class="hover:text-teal transition-colors">Kaggle</a>
+                    <a href="contact.html" class="bg-teal hover:bg-teal/80 px-4 py-2 rounded-lg transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 relative">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" style="color: #ceb007;">My Portfolio</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                A comprehensive showcase of my journey in machine learning, from Android malware detection to national programming competitions
+            </p>
+        </div>
+    </section>
+    
+    <!-- Project Timeline -->
+    <section id="timeline" class="py-20 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold mb-6" style="color: #ceb007;">Project Timeline</h2>
+                <p class="text-xl text-gray-400">Chronological journey of my technical achievements and learning</p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- 2022 - Programming Achievements -->
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-effect p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-teal">Programming Jam 7.0</h3>
+                            <span class="text-gold font-semibold">2022</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            Participated in the national programming competition, showcasing advanced algorithmic thinking and problem-solving skills under competitive constraints.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Algorithms</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Problem Solving</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Competitive Programming</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2022 - Software Engineering Club -->
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-effect p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-teal">Software Engineering Club</h3>
+                            <span class="text-gold font-semibold">2022</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            Recognized for significant contributions and dedicated effort in the Software Engineering Club, demonstrating leadership and collaborative skills.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Leadership</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Team Collaboration</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Software Engineering</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2024 - Android Malware Detection -->
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-effect p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-teal">Android Malware Detection</h3>
+                            <span class="text-gold font-semibold">2024</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            Published comprehensive malware detection system on GitHub, achieving exceptional accuracy rates through advanced machine learning techniques.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold gradient-text">99.1%</div>
+                                <div class="text-sm text-gray-400">Dataset 2 Accuracy</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold gradient-text">96.25%</div>
+                                <div class="text-sm text-gray-400">Dataset 1 Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Machine Learning</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Android Security</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Python</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2025 - IT Support Experience -->
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-effect p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-teal">IT Support - Artar</h3>
+                            <span class="text-gold font-semibold">May - Jun 2025</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            Collaborated with cross-functional teams to implement IT solutions, optimize workflows, and achieve organizational goals in a professional environment.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">IT Solutions</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Workflow Optimization</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Cross-functional Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Android Malware Detection Deep Dive -->
+    <section id="malware-detection" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold mb-6" style="color: #ceb007;">Android Malware Detection</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Advanced machine learning system for detecting and mitigating malware threats on Android devices
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Performance Metrics -->
+                <div class="scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-teal">Performance Metrics</h3>
+                    <div id="performance-chart" class="w-full h-80 glass-effect rounded-lg p-4"></div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="performance-card p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold gradient-text mb-2">99.1%</div>
+                            <div class="text-sm text-gray-400">Static Analysis</div>
+                            <div class="text-xs text-gray-500">Dataset 2</div>
+                        </div>
+                        <div class="performance-card p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold gradient-text mb-2">96.25%</div>
+                            <div class="text-sm text-gray-400">Dynamic Analysis</div>
+                            <div class="text-xs text-gray-500">Dataset 1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Details -->
+                <div class="scroll-reveal">
+                    <h3 class="text-2xl font-bold mb-6 text-teal">Technical Implementation</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold mb-3 text-gold">Methodology</h4>
+                            <p class="text-gray-400 mb-4">
+                                Developed innovative methodologies combining static and dynamic analysis techniques for comprehensive malware detection.
+                            </p>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• Feature extraction from APK files</li>
+                                <li>• Behavioral analysis during execution</li>
+                                <li>• Machine learning classification</li>
+                                <li>• False positive reduction techniques</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold mb-3 text-gold">Technologies Used</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Python</span>
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Scikit-learn</span>
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Android SDK</span>
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Static Analysis</span>
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Dynamic Analysis</span>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold mb-3 text-gold">Key Achievements</h4>
+                            <ul class="text-sm text-gray-400 space-y-2">
+                                <li>• Achieved 99.1% accuracy in static analysis</li>
+                                <li>• Reduced false positives by 15% compared to existing solutions</li>
+                                <li>• Published on GitHub with comprehensive documentation</li>
+                                <li>• Contributed to enhanced mobile security research</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code Sample -->
+            <div class="mt-12 scroll-reveal">
+                <h3 class="text-2xl font-bold mb-6 text-teal">Code Sample</h3>
+                <div class="code-block">
+                    <pre><code># Malware Detection Model Training
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
+class MalwareDetector:
+    def __init__(self):
+        self.model = RandomForestClassifier(n_estimators=100, random_state=42)
+        self.accuracy = None
+    
+    def train(self, features, labels):
+        X_train, X_test, y_train, y_test = train_test_split(
+            features, labels, test_size=0.2, random_state=42
+        )
+        
+        self.model.fit(X_train, y_train)
+        predictions = self.model.predict(X_test)
+        self.accuracy = accuracy_score(y_test, predictions)
+        
+        return self.accuracy
+    
+    def predict(self, features):
+        return self.model.predict(features)</code></pre>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="https://github.com/Abdullah-Hamad-Almousa" target="_blank" class="inline-flex items-center bg-teal hover:bg-teal/80 px-6 py-3 rounded-lg font-semibold transition-all hover-lift">
+                        View Full Project on GitHub
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Competitions Section -->
+    <section id="competitions" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold mb-6" style="color: #ceb007;">Programming Competitions</h2>
+                <p class="text-xl text-gray-400">National-level achievements in competitive programming</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Java Programming Contest -->
+                <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gold rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Java Programming Contest</h3>
+                            <p class="text-gold font-semibold">National Competition, Saudi Arabia</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <div class="text-5xl font-bold gradient-text mb-2">5th Place</div>
+                        <p class="text-gray-400">Among top national participants</p>
+                    </div>
+                    
+                    <p class="text-gray-400 mb-6">
+                        Secured 5th place among top national participants, showcasing exceptional programming skills and problem-solving abilities. Delivered optimized solutions to real-world problems using Java, earning recognition for creativity and efficiency.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-teal mb-2">Key Achievements</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• Exceptional programming skills demonstration</li>
+                                <li>• Optimized solutions to real-world problems</li>
+                                <li>• Recognition for creativity and efficiency</li>
+                                <li>• Innovative thinking under competitive constraints</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-teal mb-2">Technologies</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Java</span>
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Algorithms</span>
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Data Structures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Programming Jam 7.0 -->
+                <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-teal rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Programming Jam 7.0</h3>
+                            <p class="text-gold font-semibold">National Programming Competition</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <div class="text-3xl font-bold mb-2">Participant</div>
+                        <p class="text-gray-400">2022 Edition</p>
+                    </div>
+                    
+                    <p class="text-gray-400 mb-6">
+                        Active participation in the national programming competition, demonstrating advanced algorithmic thinking and collaborative problem-solving skills in a competitive environment.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-teal mb-2">Skills Demonstrated</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li>• Advanced algorithmic thinking</li>
+                                <li>• Time management under pressure</li>
+                                <li>• Collaborative problem-solving</li>
+                                <li>• Creative solution development</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-teal mb-2">Focus Areas</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Algorithms</span>
+                                <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Optimization</span>
+                                <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Team Work</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Kaggle Section -->
+    <section id="kaggle" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold mb-6" style="color: #ceb007;">Kaggle Achievements</h2>
+                <p class="text-xl text-gray-400">Active participation in data science competitions and community</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">50+</div>
+                    <div class="text-gray-400 mb-2">Citations</div>
+                    <p class="text-sm text-gray-500">Research impact and recognition</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold gradient-text mb-2">1000+</div>
+                    <div class="text-gray-400 mb-2">Profile Views</div>
+                    <p class="text-sm text-gray-500">Community engagement</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold mb-2">Multiple</div>
+                    <div class="text-gray-400 mb-2">Competitions</div>
+                    <p class="text-sm text-gray-500">Active participation</p>
+                </div>
+            </div>
+            
+            <div class="glass-effect p-8 rounded-lg scroll-reveal">
+                <h3 class="text-2xl font-bold mb-6 text-center">Kaggle Profile Highlights</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-teal mb-4">Competitions & Contributions</h4>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• Participated in multiple machine learning competitions</li>
+                            <li>• Showcased proficiency in AI-driven solutions</li>
+                            <li>• Demonstrated advanced ML workflow management</li>
+                            <li>• Collaborative problem-solving in team settings</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-teal mb-4">Skills Demonstrated</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Data Analysis</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Feature Engineering</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Model Tuning</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Ensemble Methods</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Deep Learning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="https://www.kaggle.com/abdullahhamadalmousa" target="_blank" class="inline-flex items-center bg-gold hover:bg-gold/80 px-6 py-3 rounded-lg font-semibold transition-all hover-lift">
+                        View Kaggle Profile
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 Abdullah Almousa. Built with passion for machine learning and AI innovation.
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize performance chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartDom = document.getElementById('performance-chart');
+            const performanceChart = echarts.init(chartDom);
+            
+            const option = {
+                backgroundColor: 'transparent',
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    borderColor: '#00D4AA',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                legend: {
+                    data: ['Static Analysis', 'Dynamic Analysis'],
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['Dataset 1', 'Dataset 2'],
+                    axisLabel: {
+                        color: '#ffffff'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#00D4AA'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 90,
+                    max: 100,
+                    axisLabel: {
+                        color: '#ffffff',
+                        formatter: '{value}%'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#00D4AA'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(0, 212, 170, 0.2)'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Static Analysis',
+                        type: 'bar',
+                        data: [96.25, 99.1],
+                        itemStyle: {
+                            color: '#00D4AA'
+                        }
+                    },
+                    {
+                        name: 'Dynamic Analysis',
+                        type: 'bar',
+                        data: [94.8, 97.3],
+                        itemStyle: {
+                            color: '#FFB800'
+                        }
+                    }
+                ]
+            };
+            
+            performanceChart.setOption(option);
+            
+            // Resize chart on window resize
+            window.addEventListener('resize', function() {
+                performanceChart.resize();
+            });
+        });
+        
+        // Scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all scroll-reveal elements
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

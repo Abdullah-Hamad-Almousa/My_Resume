@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Almousa - Machine Learning Practitioner</title>
+    <meta name="description" content="Passionate machine learning practitioner with expertise in AI, deep learning, and NLP. 28+ citations, 700+ Kaggle views, Android malware detection specialist.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#0B1426',
+                        'teal': '#00D4AA',
+                        'gold': '#FFB800',
+                        'charcoal': '#1A1A1A',
+                        'slate': '#64748B'
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #1A1A1A 0%, #0B1426 100%);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-bg {
+            background-image: url('resources/hero-ml-workspace.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00D4AA 0%, #FFB800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 170, 0.2);
+        }
+        
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .skill-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(255, 184, 0, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(11, 20, 38, 0.9);
+        }
+
+        /* -----------------------
+   BUTTON STYLES (New)
+------------------------ */
+.btn {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Solid (primary) style */
+.btn-primary {
+    background: linear-gradient(135deg, #00D4AA 0%, #00A08C 100%);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 212, 170, 0.25);
+}
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
+}
+
+/* Outline style */
+.btn-outline {
+    background: transparent;
+    border-color: #00D4AA;
+    color: #00D4AA;
+}
+.btn-outline:hover {
+    background: #00D4AA;
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
+}
+
+    </style>
+</head>
+<body class="text-gray-100 overflow-x-hidden">
+    <!-- Neural Network Background -->
+    <div id="neural-bg" class="neural-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold" >Abdullah Almousa</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-teal transition-colors">Home</a>
+                    <a href="#skills" class="hover:text-teal transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-teal transition-colors">Projects</a>
+                    <a href="#achievements" class="hover:text-teal transition-colors">Achievements</a>
+                    <a href="portfolio.html" class="hover:text-teal transition-colors">Portfolio</a>
+                    <a href="contact.html" class="btn btn-primary">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="absolute inset-0 hero-bg opacity-30"></div>
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <div class="mb-8">
+                <h1 class="text-6xl md:text-8xl font-bold mb-4">
+                    <span class="gradient-text" id="typed-name"></span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-6">
+                    <span id="typed-title"></span>
+                </p>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    Passionate machine learning practitioner with expertise in artificial intelligence, deep learning, and natural language processing. 
+                    Proficient in creating AI-driven solutions, optimizing models for effectiveness, and integrating AI into diverse applications.
+                </p>
+            </div>
+            
+            <div>
+                <a href="portfolio.html" class="btn btn-primary">View Portfolio</a>
+                <a href="contact.html" class="btn btn-outline">Start a Conversation</a>
+                <p>&nbsp;</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift">
+                    <div class="text-3xl font-bold gradient-text mb-2">50+</div>
+                    <div class="text-sm text-gray-400">Citations</div>
+                </div>
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift">
+                    <div class="text-3xl font-bold gradient-text mb-2">1000+</div>
+                    <div class="text-sm text-gray-400">Kaggle Views</div>
+                </div>
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift">
+                    <div class="text-3xl font-bold gradient-text mb-2">99.1%</div>
+                    <div class="text-sm text-gray-400">Malware Detection</div>
+                </div>
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift">
+                    <div class="text-3xl font-bold gradient-text mb-2">5th</div>
+                    <div class="text-sm text-gray-400">National Contest</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #ceb007;">Technical Expertise</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Comprehensive skill set in machine learning, deep learning, and software development
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Skills Radar Chart -->
+                <div class="scroll-reveal">
+                    <div id="skills-chart" class="w-full h-96 glass-effect rounded-lg p-6"></div>
+                </div>
+                
+                <!-- Skills List -->
+                <div class="space-y-6 scroll-reveal">
+                    <div class="skill-card p-6 rounded-lg hover-lift">
+                        <h3 class="text-xl font-semibold mb-4 text-teal">Programming Languages</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Python</span>
+                                <div class="w-32 bg-gray-700 rounded-full h-2">
+                                    <div class="bg-teal h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Java</span>
+                                <div class="w-32 bg-gray-700 rounded-full h-2">
+                                    <div class="bg-gold h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-card p-6 rounded-lg hover-lift">
+                        <h3 class="text-xl font-semibold mb-4 text-teal">ML Frameworks</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">🔥</div>
+                                <div class="font-medium">PyTorch</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">🧠</div>
+                                <div class="font-medium">TensorFlow</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">👁️</div>
+                                <div class="font-medium">OpenCV</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-2">📊</div>
+                                <div class="font-medium">Scikit-learn</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-card p-6 rounded-lg hover-lift">
+                        <h3 class="text-xl font-semibold mb-4 text-teal">Specializations</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Deep Learning</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">NLP</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Computer Vision</span>
+                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Data Analytics</span>
+                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Model Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #ceb007;">Featured Projects</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Innovative solutions and achievements in machine learning and software development
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Android Malware Detection -->
+                <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-teal rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">Android Malware Detection</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Developed innovative methodologies for detecting and mitigating malware threats on Android devices using advanced machine learning techniques.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold gradient-text">99.1%</div>
+                            <div class="text-sm text-gray-400">Dataset 2 Accuracy</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold gradient-text">96.25%</div>
+                            <div class="text-sm text-gray-400">Dataset 1 Accuracy</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-teal/20 text-teal px-2 py-1 rounded text-sm">Python</span>
+                        <span class="bg-gold/20 text-gold px-2 py-1 rounded text-sm">ML</span>
+                        <span class="bg-teal/20 text-teal px-2 py-1 rounded text-sm">Android Security</span>
+                    </div>
+                    <a href="https://github.com/Abdullah-Hamad-Almousa/Android_Malware_detection" target="_blank" class="inline-flex items-center text-teal hover:text-teal/80 transition-colors">
+                        View on GitHub
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Java Programming Contest -->
+                <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">Java Programming Contest</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Secured 5th place among top national participants in Saudi Arabia's national-level programming competition, showcasing exceptional problem-solving abilities.
+                    </p>
+                    <div class="text-center mb-6">
+                        <div class="text-4xl font-bold gradient-text mb-2">5th Place</div>
+                        <div class="text-gray-400">National Competition</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-gold/20 text-gold px-2 py-1 rounded text-sm">Java</span>
+                        <span class="bg-teal/20 text-teal px-2 py-1 rounded text-sm">Algorithms</span>
+                        <span class="bg-gold/20 text-gold px-2 py-1 rounded text-sm">Problem Solving</span>
+                    </div>
+                    <div class="achievement-badge text-white px-4 py-2 rounded-lg text-center font-semibold">
+                        National Recognition
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #ceb007;">Recognition & Achievements</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Professional accomplishments and community contributions
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Programming Jam 7.0</h3>
+                    <p class="text-gray-400 mb-4">National Programming Competition 2022</p>
+                    <div class="text-teal font-semibold">Participant</div>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Software Engineering Club</h3>
+                    <p class="text-gray-400 mb-4">Recognized for contributions and effort</p>
+                    <div class="text-gold font-semibold">2022</div>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-lg text-center hover-lift scroll-reveal">
+                    <div class="w-16 h-16 bg-teal rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Kaggle Competitor</h3>
+                    <p class="text-gray-400 mb-4">Multiple competitions participation</p>
+                    <div class="text-teal font-semibold">Active Contributor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact CTA -->
+    <section class="py-20 relative">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="glass-effect p-12 rounded-lg scroll-reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Collaborate?</h2>
+                <p class="text-xl text-gray-400 mb-8">
+                    I'm actively seeking opportunities in machine learning and data science applications to leverage my expertise in AI-driven solutions.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="btn btn-primary">
+                        Start a Conversation
+                    </a>
+                    <a href="https://www.linkedin.com/in/specialist-abdullah-almousa-a76562237" target="_blank" class="border border-teal text-teal hover:bg-teal hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                        Connect on LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 Abdullah Almousa. Built with passion for machine learning and AI innovation.
+            </p>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+</body>
+</html>
