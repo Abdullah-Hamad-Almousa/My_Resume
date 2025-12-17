@@ -79,26 +79,34 @@ function initializeNeuralBackground() {
 
 // Typewriter effect for hero section
 function initializeTypewriter() {
-    // Name typewriter
+    // 1. Clear the elements first to prevent "ghost" text if the script re-runs
+    const nameElement = document.querySelector('#typed-name');
+    const titleElement = document.querySelector('#typed-title');
+    if (nameElement) nameElement.innerHTML = '';
+    if (titleElement) titleElement.innerHTML = '';
+
+    // 2. Initialize Name
     new Typed('#typed-name', {
         strings: ['Abdullah Almousa'],
         typeSpeed: 100,
         backSpeed: 50,
-        backDelay: 2000,
         loop: false,
         showCursor: true,
         cursorChar: '|',
         onComplete: function() {
-            // Start title typewriter after name is complete
-            new Typed('#typed-title', {
-                strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science Expert'],
-                typeSpeed: 80,
-                backSpeed: 40,
-                backDelay: 2000,
-                loop: true,
-                showCursor: true,
-                cursorChar: '|'
-            });
+            // 3. Added a small delay (200ms) before starting the second animation
+            // to prevent the layout jump from breaking the transition
+            setTimeout(() => {
+                new Typed('#typed-title', {
+                    strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science'],
+                    typeSpeed: 80,
+                    backSpeed: 40,
+                    backDelay: 2000,
+                    loop: true,
+                    showCursor: true,
+                    cursorChar: '|'
+                });
+            }, 200);
         }
     });
 }
