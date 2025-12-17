@@ -9,7 +9,8 @@ let skillsChart;
 document.addEventListener('DOMContentLoaded', function() {
     initializeNeuralBackground();
     initializeTypewriter();
-    initializeSkillsChart();
+    initializePythonChart();
+    initializeKotlinChart();
     initializeScrollReveal();
     initializeMobileMenu();
     initializeSmoothScrolling();
@@ -98,7 +99,7 @@ function initializeTypewriter() {
             // to prevent the layout jump from breaking the transition
             setTimeout(() => {
                 new Typed('#typed-title', {
-                    strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science'],
+                    strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science', 'Android App developer'],
                     typeSpeed: 80,
                     backSpeed: 40,
                     backDelay: 2000,
@@ -112,7 +113,7 @@ function initializeTypewriter() {
 }
 
 // Skills radar chart
-function initializeSkillsChart() {
+function initializePythonChart() {
     const chartDom = document.getElementById('skills-chart');
     skillsChart = echarts.init(chartDom);
     
@@ -121,12 +122,12 @@ function initializeSkillsChart() {
         radar: {
             indicator: [
                 { name: 'Python', max: 100 },
-                { name: 'Java', max: 100 },
-                { name: 'PyTorch', max: 100 },
+                { name: 'Scikit-learn', max: 100 },
                 { name: 'TensorFlow', max: 100 },
+                { name: 'PyTorch', max: 100 },
                 { name: 'OpenCV', max: 100 },
                 { name: 'ML Models', max: 100 },
-                { name: 'Data Visualization', max: 100 },
+                { name: 'Data\n Visualization', max: 100 },
                 { name: 'NLP', max: 100 }
             ],
             shape: 'polygon',
@@ -153,7 +154,7 @@ function initializeSkillsChart() {
             name: 'Skills',
             type: 'radar',
             data: [{
-                value: [95, 90, 85, 88, 82, 92, 87, 80],
+                value: [69, 72, 68, 86, 63, 95, 87, 88],
                 name: 'Technical Skills',
                 areaStyle: {
                     color: 'rgba(0, 212, 170, 0.2)'
@@ -174,6 +175,72 @@ function initializeSkillsChart() {
     skillsChart.setOption(option);
     
     // Resize chart on window resize
+    window.addEventListener('resize', function() {
+        skillsChart.resize();
+    });
+}
+
+function initializeKotlinChart() {
+    const chartDom = document.getElementById('skills-chart-kotlin');
+    skillsChart = echarts.init(chartDom);
+
+    const option = {
+        backgroundColor: 'transparent',
+        radar: {
+            indicator: [
+                { name: 'Compose Multiplatform', max: 100 },
+                { name: 'Ktor', max: 100 },
+                { name: 'Koin', max: 100 },
+                { name: 'Kotlinx Serialization', max: 100 },
+                { name: 'Coroutines', max: 100 },
+                { name: 'SQLDelight', max: 100 },
+                { name: 'Gradle &\n Kotlin DSL', max: 100 },
+                { name: 'Shared Code', max: 100 }
+            ],
+            shape: 'polygon',
+            splitNumber: 4,
+            axisName: {
+                color: '#00D4AA',
+                fontSize: 12
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'rgba(0, 212, 170, 0.2)'
+                }
+            },
+            splitArea: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(0, 212, 170, 0.3)'
+                }
+            }
+        },
+        series: [{
+            name: 'KMP Skills',
+            type: 'radar',
+            data: [{
+                value: [95, 87, 82, 88, 84, 69, 77, 80],
+                name: 'Kotlin Multiplatform',
+                areaStyle: {
+                    color: 'rgba(0, 212, 170, 0.2)'
+                },
+                lineStyle: {
+                    color: '#00D4AA',
+                    width: 2
+                },
+                itemStyle: {
+                    color: '#FFB800'
+                }
+            }],
+            animationDuration: 2000,
+            animationEasing: 'cubicOut'
+        }]
+    };
+
+    skillsChart.setOption(option);
+
     window.addEventListener('resize', function() {
         skillsChart.resize();
     });
@@ -263,19 +330,17 @@ function initializeSkillBars() {
         skillBars.forEach(bar => {
             const rect = bar.getBoundingClientRect();
             if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const width = bar.style.width;
+                const targetWidth = bar.dataset.width;   // always available
                 bar.style.width = '0%';
                 setTimeout(() => {
                     bar.style.transition = 'width 1.5s ease-out';
-                    bar.style.width = width;
+                    bar.style.width = targetWidth;
                 }, 200);
             }
         });
     };
     
-    // Animate on scroll
     window.addEventListener('scroll', animateSkillBars);
-    // Animate on load
     setTimeout(animateSkillBars, 1000);
 }
 
