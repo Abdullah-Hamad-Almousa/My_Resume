@@ -78,38 +78,55 @@ function initializeNeuralBackground() {
     });
 }
 
-// Typewriter effect for hero section
+// UPDATED: Typewriter effect handling both Top Menu and Hero Section
 function initializeTypewriter() {
-    // 1. Clear the elements first to prevent "ghost" text if the script re-runs
-    const nameElement = document.querySelector('#typed-name');
+    // 1. Clear elements first to prevent "ghost" text
+    const menuNameElement = document.querySelector('#typed-menu-name');
+    const heroNameElement = document.querySelector('#typed-name');
     const titleElement = document.querySelector('#typed-title');
-    if (nameElement) nameElement.innerHTML = '';
+    
+    if (menuNameElement) menuNameElement.innerHTML = '';
+    if (heroNameElement) heroNameElement.innerHTML = '';
     if (titleElement) titleElement.innerHTML = '';
 
-    // 2. Initialize Name
-    new Typed('#typed-name', {
-        strings: ['Abdullah Almousa'],
-        typeSpeed: 100,
-        backSpeed: 50,
-        loop: false,
-        showCursor: true,
-        cursorChar: '|',
-        onComplete: function() {
-            // 3. Added a small delay (200ms) before starting the second animation
-            // to prevent the layout jump from breaking the transition
-            setTimeout(() => {
-                new Typed('#typed-title', {
-                    strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science', 'Android App developer'],
-                    typeSpeed: 80,
-                    backSpeed: 40,
-                    backDelay: 2000,
-                    loop: true,
-                    showCursor: true,
-                    cursorChar: '|'
-                });
-            }, 200);
-        }
-    });
+    // 2. Initialize Top Menu Name
+    // Note: showCursor is false here to fix alignment issues
+    if (document.querySelector('#typed-menu-name')) {
+        new Typed('#typed-menu-name', {
+            strings: ['Abdullah Almousa'],
+            typeSpeed: 50,
+            showCursor: false, 
+            loop: false
+        });
+    }
+
+    // 3. Initialize Big Hero Name
+    if (document.querySelector('#typed-name')) {
+        new Typed('#typed-name', {
+            strings: ['Abdullah Almousa'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: false,
+            showCursor: true,
+            cursorChar: '|',
+            onComplete: function() {
+                // 4. Start subtitle after name is finished
+                setTimeout(() => {
+                    if (document.querySelector('#typed-title')) {
+                        new Typed('#typed-title', {
+                            strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science', 'Android App developer'],
+                            typeSpeed: 80,
+                            backSpeed: 40,
+                            backDelay: 2000,
+                            loop: true,
+                            showCursor: true,
+                            cursorChar: '|'
+                        });
+                    }
+                }, 200);
+            }
+        });
+    }
 }
 
 // Skills radar chart
@@ -302,8 +319,6 @@ function initializeMobileMenu() {
         });
     }
 }
-
-
 
 // Smooth scrolling for navigation links
 function initializeSmoothScrolling() {
@@ -510,8 +525,10 @@ function showWorkTime() {
   const endStr = end.toLocaleTimeString([], options);
 
   // Show work hours
-  document.getElementById('work-time').textContent =
-    `Work time: ${startStr} → ${endStr} (your local time)`;
+  const workTimeElement = document.getElementById('work-time');
+  if (workTimeElement) {
+      workTimeElement.textContent = `Work time: ${startStr} → ${endStr} (your local time)`;
+  }
 
   // Calculate relative message
   const diffStart = start - now;
@@ -529,8 +546,11 @@ function showWorkTime() {
   } else {
     message = 'Work time is over for today';
   }
-
-  document.getElementById('work-status').textContent = message;
+  
+  const workStatusElement = document.getElementById('work-status');
+  if (workStatusElement) {
+      workStatusElement.textContent = message;
+  }
 }
 
 // Initial call
@@ -549,8 +569,10 @@ function showWorkSchedule() {
   const endHour = 18;   // 6 PM
 
   // Always show this schedule text
-  document.getElementById('work-hours').textContent =
-    'Sunday - Thursday: 12:00 PM - 6:00 PM';
+  const workHoursElement = document.getElementById('work-hours');
+  if (workHoursElement) {
+      workHoursElement.textContent = 'Sunday - Thursday: 12:00 PM - 6:00 PM';
+  }
 
   // Check if user is in working hours
   let statusText;
@@ -583,41 +605,47 @@ function showWorkSchedule() {
     statusText = `🔴 Closed now — opens ${daysToAdd === 0 ? 'later today' : 'next workday'} at ${timeString}`;
   }
 
-  document.getElementById('work-status').textContent = statusText;
+  const workStatusElement = document.getElementById('work-status');
+  if (workStatusElement) {
+      workStatusElement.textContent = statusText;
+  }
 }
 
 // Run once and update every minute
 showWorkSchedule();
 setInterval(showWorkSchedule, 60000);
 
-document.getElementById('contact-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const form = e.target;
-  const submitText = document.getElementById('submit-text');
-  const submitLoading = document.getElementById('submit-loading');
-  
-  submitText.classList.add('hidden');
-  submitLoading.classList.remove('hidden');
-  
-  try {
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
-    
-    if (response.ok) {
-      alert('✅ Your message has been sent successfully!');
-      form.reset();
-    } else {
-      alert('❌ Something went wrong. Please try again.');
-    }
-  } catch (error) {
-    alert('⚠️ Network error. Please try again.');
-  }
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const submitText = document.getElementById('submit-text');
+      const submitLoading = document.getElementById('submit-loading');
+      
+      if (submitText) submitText.classList.add('hidden');
+      if (submitLoading) submitLoading.classList.remove('hidden');
+      
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        
+        if (response.ok) {
+          alert('✅ Your message has been sent successfully!');
+          form.reset();
+        } else {
+          alert('❌ Something went wrong. Please try again.');
+        }
+      } catch (error) {
+        alert('⚠️ Network error. Please try again.');
+      }
 
-  submitText.classList.remove('hidden');
-  submitLoading.classList.add('hidden');
-});
+      if (submitText) submitText.classList.remove('hidden');
+      if (submitLoading) submitLoading.classList.add('hidden');
+    });
+}

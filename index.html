@@ -6,10 +6,8 @@
     <title>Abdullah Almousa - Machine Learning Practitioner</title>
     <meta name="description" content="Passionate machine learning practitioner with expertise in AI, deep learning, and NLP. 28+ citations, 700+ Kaggle views, Android malware detection specialist.">
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -17,7 +15,6 @@
     <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
     <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -116,77 +113,77 @@
         }
 
         /* -----------------------
-   BUTTON STYLES (New)
------------------------- */
-.btn {
-    display: inline-block;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-    border-radius: 0.5rem;
-    border: 2px solid transparent;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
-    text-align: center;
-    cursor: pointer;
-    box-sizing: border-box;
-}
+           BUTTON STYLES
+        ------------------------ */
+        .btn {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            border: 2px solid transparent;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+            text-align: center;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
 
-/* Solid (primary) style */
-.btn-primary {
-    background: linear-gradient(135deg, #00D4AA 0%, #00A08C 100%);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 212, 170, 0.25);
-}
-.btn-primary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
-}
+        /* Solid (primary) style */
+        .btn-primary {
+            background: linear-gradient(135deg, #00D4AA 0%, #00A08C 100%);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 212, 170, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
+        }
 
-/* Outline style */
-.btn-outline {
-    background: transparent;
-    border-color: #00D4AA;
-    color: #00D4AA;
-}
-.btn-outline:hover {
-    background: #00D4AA;
-    color: #fff;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
-}
-
+        /* Outline style */
+        .btn-outline {
+            background: transparent;
+            border-color: #00D4AA;
+            color: #00D4AA;
+        }
+        .btn-outline:hover {
+            background: #00D4AA;
+            color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 212, 170, 0.35);
+        }
+        
+        /* Typed Cursor Customization */
+        .typed-cursor {
+            color: #00D4AA;
+        }
+        
     </style>
 </head>
 <body class="text-gray-100 overflow-x-hidden">
-    <!-- Neural Network Background -->
     <div id="neural-bg" class="neural-bg"></div>
     
-    <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-800">
-        <div class="max-w-6xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-xl font-bold" >Abdullah Almousa</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-teal transition-colors">Home</a>
-                    <a href="#skills" class="hover:text-teal transition-colors">Skills</a>
-                    <a href="#projects" class="hover:text-teal transition-colors">Projects</a>
-                    <a href="#achievements" class="hover:text-teal transition-colors">Achievements</a>
-                    <a href="portfolio.html" class="hover:text-teal transition-colors">Portfolio</a>
-                    <a href="contact.html" class="btn btn-primary">Contact</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div id="typed-menu-name" class="text-xl font-bold text-teal"></div>
+
+      <div class="hidden md:flex flex-none items-center gap-8">
+        <a href="#home" class="menu-link">Home</a>
+        <a href="#skills" class="menu-link">Skills</a>
+        <a href="#projects" class="menu-link">Projects</a>
+        <a href="#achievements" class="menu-link">Achievements</a>
+        <a href="portfolio.html" class="menu-link">Portfolio</a>
+        <a href="contact.html" class="btn btn-primary contact-btn">Contact</a>
+      </div>
+
+      <div class="md:hidden">
+        <button id="mobile-menu-btn" class="text-white">…</button>
+      </div>
+    </div>
+  </div>
+</nav>
     
-    <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
         <div class="absolute inset-0 hero-bg opacity-30"></div>
         <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
@@ -211,7 +208,6 @@
                 <p>&nbsp;</p>
             </div>
             
-            <!-- Quick Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 <div class="glass-effect p-6 rounded-lg text-center hover-lift">
                     <div class="text-3xl font-bold gradient-text mb-2">100+</div>
@@ -247,7 +243,6 @@
         </div>
     </section>
     
-    <!-- Skills Section -->
     <section id="skills" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -258,12 +253,10 @@
             </div>
             
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Skills Radar Chart -->
                 <div class="scroll-reveal">
                     <div id="skills-chart" class="w-full h-96 glass-effect rounded-lg p-6"></div>
                 </div>
                 
-                <!-- Skills List -->
                 <div class="space-y-6 scroll-reveal">
                     <div class="skill-card p-6 rounded-lg hover-lift">
                         <h3 class="text-xl font-semibold mb-4 text-teal">Programming Languages</h3>
@@ -322,7 +315,7 @@
 
     <br>
     
-    <section id="skills" class="py-20 relative">
+    <section class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -331,49 +324,45 @@
             </div>
             
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Skills Radar Chart -->
                 <div class="scroll-reveal">
                     <div id="skills-chart-kotlin" class="w-full h-96 glass-effect rounded-lg p-6"></div>
                 </div>
                     
-                    <div class="skill-card p-6 rounded-lg hover-lift">
-                        <h3 class="text-xl font-semibold mb-4 text-teal">KMP Frameworks</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="text-center">
-                                <div class="text-2xl mb-2">🖌️</div>
-                                <div class="font-medium">Compose Multiplatform</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-2">⚡</div>
-                                <div class="font-medium">Ktor</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-2">🔗</div>
-                                <div class="font-medium">Koin</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-2">📦</div>
-                                <div class="font-medium">Kotlinx Serialization</div>
-                            </div>
+                <div class="skill-card p-6 rounded-lg hover-lift">
+                    <h3 class="text-xl font-semibold mb-4 text-teal">KMP Frameworks</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl mb-2">🖌️</div>
+                            <div class="font-medium">Compose Multiplatform</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-2">⚡</div>
+                            <div class="font-medium">Ktor</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-2">🔗</div>
+                            <div class="font-medium">Koin</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-2">📦</div>
+                            <div class="font-medium">Kotlinx Serialization</div>
                         </div>
                     </div>
+                </div>
                     
-                    <div class="skill-card p-6 rounded-lg hover-lift">
-                        <h3 class="text-xl font-semibold mb-4 text-teal">Specializations</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Deep Learning</span>
-                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">NLP</span>
-                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Computer Vision</span>
-                            <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Data Analytics</span>
-                            <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Model Optimization</span>
-                        </div>
+                <div class="skill-card p-6 rounded-lg hover-lift lg:col-span-2 lg:w-1/2 lg:mx-auto">
+                    <h3 class="text-xl font-semibold mb-4 text-teal">Specializations</h3>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Cross-Platform Dev</span>
+                        <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">Clean Architecture</span>
+                        <span class="bg-teal/20 text-teal px-3 py-1 rounded-full text-sm">Responsive UI</span>
+                        <span class="bg-gold/20 text-gold px-3 py-1 rounded-full text-sm">State Management</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Projects Section -->
     <section id="projects" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -384,7 +373,6 @@
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Android Malware Detection -->
                 <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-teal rounded-lg flex items-center justify-center mr-4">
@@ -420,7 +408,6 @@
                     </a>
                 </div>
                 
-                <!-- Java Programming Contest -->
                 <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gold rounded-lg flex items-center justify-center mr-4">
@@ -450,7 +437,6 @@
         </div>
     </section>
     
-    <!-- Achievements Section -->
     <section id="achievements" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -497,7 +483,6 @@
         </div>
     </section>
     
-    <!-- Contact CTA -->
     <section class="py-20 relative">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div class="glass-effect p-12 rounded-lg scroll-reveal">
@@ -517,7 +502,6 @@
         </div>
     </section>
     
-    <!-- Footer -->
     <footer class="py-8 border-t border-gray-800">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <p class="text-gray-400">
