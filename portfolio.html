@@ -6,16 +6,13 @@
     <title>Portfolio - Abdullah Almousa</title>
     <meta name="description" content="Detailed portfolio of machine learning projects, competitions, and achievements by Abdullah Almousa.">
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,6 +38,13 @@
         body {
             background: linear-gradient(135deg, #1A1A1A 0%, #0B1426 100%);
             font-family: 'Inter', sans-serif;
+        }
+
+        .hero-bg {
+            background-image: url('hero-ml-workspace.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         
         .glass-effect {
@@ -122,27 +126,103 @@
             line-height: 1.5;
             overflow-x: auto;
         }
+        
+        .menu-link {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00D4AA 0%, #00A08C 100%);
+            color: #fff;
+        }
+        
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        /* Specific fix for Portfolio animation */
+        #portfolio-name-animate {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+.menu-link {
+  color: #333;               /* default text color */
+  text-decoration: none;     /* remove underline */
+  font-weight: 500;          /* slightly bold */
+  padding: 8px 12px;         /* breathing space */
+  transition: all 0.3s ease; /* smooth animation */
+}
+
+.menu-link:hover {
+  color: #fff;               /* text turns white */
+  background-color: #333; /* lively blue background */
+  border-radius: 4px;        /* rounded corners */
+  transform: scale(1.05);    /* subtle zoom effect */
+}
+
     </style>
 </head>
 <body class="text-gray-100 overflow-x-hidden">
-    <!-- Navigation -->
+    <div id="neural-bg" class="neural-bg"></div>
+
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-800">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="text-xl font-bold">Abdullah Almousa</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="hover:text-teal transition-colors">Home</a>
-                    <a href="#timeline" class="hover:text-teal transition-colors">Timeline</a>
-                    <a href="#malware-detection" class="hover:text-teal transition-colors">Malware Detection</a>
-                    <a href="#competitions" class="hover:text-teal transition-colors">Competitions</a>
-                    <a href="#kaggle" class="hover:text-teal transition-colors">Kaggle</a>
-                    <a href="contact.html" class="bg-teal hover:bg-teal/80 px-4 py-2 rounded-lg transition-colors">Contact</a>
+                <div class="min-w-[220px] flex-shrink-0 text-xl font-bold text-teal">
+                    <span id="portfolio-name-animate"></span>
+                </div>
+                
+                <div class="hidden md:flex flex-none items-center gap-6">
+                    <a href="index.html" class="hover:text-teal menu-link">Home</a>
+                    <a href="#timeline" class="hover:text-teal menu-link">Timeline</a>
+                    <a href="#malware-detection" class="hover:text-teal menu-link">Malware Detection</a>
+                    <a href="#competitions" class="hover:text-teal menu-link">Competitions</a>
+                    <a href="#kaggle" class="hover:text-teal menu-link">Kaggle</a>
+                    <a href="contact.html" class="btn btn-primary ml-2">Contact</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
     
-    <!-- Hero Section -->
     <section class="pt-32 pb-20 relative">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h1 class="text-5xl md:text-7xl font-bold mb-6" style="color: #ceb007;">My Portfolio</h1>
@@ -152,7 +232,6 @@
         </div>
     </section>
     
-    <!-- Project Timeline -->
     <section id="timeline" class="py-20 relative">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -161,7 +240,6 @@
             </div>
             
             <div class="space-y-8">
-                <!-- 2022 - Programming Achievements -->
                 <div class="timeline-item scroll-reveal">
                     <div class="timeline-dot"></div>
                     <div class="glass-effect p-6 rounded-lg hover-lift">
@@ -180,7 +258,6 @@
                     </div>
                 </div>
                 
-                <!-- 2022 - Software Engineering Club -->
                 <div class="timeline-item scroll-reveal">
                     <div class="timeline-dot"></div>
                     <div class="glass-effect p-6 rounded-lg hover-lift">
@@ -199,7 +276,6 @@
                     </div>
                 </div>
                 
-                <!-- 2024 - Android Malware Detection -->
                 <div class="timeline-item scroll-reveal">
                     <div class="timeline-dot"></div>
                     <div class="glass-effect p-6 rounded-lg hover-lift">
@@ -228,7 +304,6 @@
                     </div>
                 </div>
                 
-                <!-- 2025 - IT Support Experience -->
                 <div class="timeline-item scroll-reveal">
                     <div class="timeline-dot"></div>
                     <div class="glass-effect p-6 rounded-lg hover-lift">
@@ -250,7 +325,6 @@
         </div>
     </section>
     
-    <!-- Android Malware Detection Deep Dive -->
     <section id="malware-detection" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -261,7 +335,6 @@
             </div>
             
             <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Performance Metrics -->
                 <div class="scroll-reveal">
                     <h3 class="text-2xl font-bold mb-6 text-teal">Performance Metrics</h3>
                     <div id="performance-chart" class="w-full h-80 glass-effect rounded-lg p-4"></div>
@@ -280,7 +353,6 @@
                     </div>
                 </div>
                 
-                <!-- Technical Details -->
                 <div class="scroll-reveal">
                     <h3 class="text-2xl font-bold mb-6 text-teal">Technical Implementation</h3>
                     
@@ -323,7 +395,6 @@
                 </div>
             </div>
             
-            <!-- Code Sample -->
             <div class="mt-12 scroll-reveal">
                 <h3 class="text-2xl font-bold mb-6 text-teal">Code Sample</h3>
                 <div class="code-block">
@@ -363,7 +434,6 @@ class MalwareDetector:
         </div>
     </section>
     
-    <!-- Competitions Section -->
     <section id="competitions" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -372,7 +442,6 @@ class MalwareDetector:
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Java Programming Contest -->
                 <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
                     <div class="flex items-center mb-6">
                         <div class="w-16 h-16 bg-gold rounded-lg flex items-center justify-center mr-4">
@@ -417,7 +486,6 @@ class MalwareDetector:
                     </div>
                 </div>
                 
-                <!-- Programming Jam 7.0 -->
                 <div class="glass-effect p-8 rounded-lg hover-lift scroll-reveal">
                     <div class="flex items-center mb-6">
                         <div class="w-16 h-16 bg-teal rounded-lg flex items-center justify-center mr-4">
@@ -465,7 +533,6 @@ class MalwareDetector:
         </div>
     </section>
     
-    <!-- Kaggle Section -->
     <section id="kaggle" class="py-20 relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 scroll-reveal">
@@ -544,7 +611,6 @@ class MalwareDetector:
         </div>
     </section>
     
-    <!-- Footer -->
     <footer class="py-8 border-t border-gray-800">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <p class="text-gray-400">
@@ -554,9 +620,11 @@ class MalwareDetector:
     </footer>
     
     <script>
-        // Initialize performance chart
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if element exists before initializing
             const chartDom = document.getElementById('performance-chart');
+            if (!chartDom) return; // Exit if chart container missing
+
             const performanceChart = echarts.init(chartDom);
             
             const option = {
@@ -565,92 +633,47 @@ class MalwareDetector:
                     trigger: 'axis',
                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
                     borderColor: '#00D4AA',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
+                    textStyle: { color: '#ffffff' }
                 },
                 legend: {
                     data: ['Static Analysis', 'Dynamic Analysis'],
-                    textStyle: {
-                        color: '#ffffff'
-                    }
+                    textStyle: { color: '#ffffff' }
                 },
                 xAxis: {
                     type: 'category',
                     data: ['Dataset 1', 'Dataset 2'],
-                    axisLabel: {
-                        color: '#ffffff'
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#00D4AA'
-                        }
-                    }
+                    axisLabel: { color: '#ffffff' },
+                    axisLine: { lineStyle: { color: '#00D4AA' } }
                 },
                 yAxis: {
                     type: 'value',
                     min: 90,
                     max: 100,
-                    axisLabel: {
-                        color: '#ffffff',
-                        formatter: '{value}%'
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#00D4AA'
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: 'rgba(0, 212, 170, 0.2)'
-                        }
-                    }
+                    axisLabel: { color: '#ffffff', formatter: '{value}%' },
+                    axisLine: { lineStyle: { color: '#00D4AA' } },
+                    splitLine: { lineStyle: { color: 'rgba(0, 212, 170, 0.2)' } }
                 },
                 series: [
                     {
                         name: 'Static Analysis',
                         type: 'bar',
                         data: [96.25, 99.1],
-                        itemStyle: {
-                            color: '#00D4AA'
-                        }
+                        itemStyle: { color: '#00D4AA' }
                     },
                     {
                         name: 'Dynamic Analysis',
                         type: 'bar',
                         data: [94.8, 97.3],
-                        itemStyle: {
-                            color: '#FFB800'
-                        }
+                        itemStyle: { color: '#FFB800' }
                     }
                 ]
             };
             
             performanceChart.setOption(option);
             
-            // Resize chart on window resize
             window.addEventListener('resize', function() {
                 performanceChart.resize();
             });
-        });
-        
-        // Scroll reveal animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all scroll-reveal elements
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-            observer.observe(el);
         });
     </script>
     <script src="main.js"></script>

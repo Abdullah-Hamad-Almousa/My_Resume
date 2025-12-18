@@ -157,6 +157,21 @@
         .typed-cursor {
             color: #00D4AA;
         }
+
+        .menu-link {
+  color: #333;               /* default text color */
+  text-decoration: none;     /* remove underline */
+  font-weight: 500;          /* slightly bold */
+  padding: 8px 12px;         /* breathing space */
+  transition: all 0.3s ease; /* smooth animation */
+}
+
+.menu-link:hover {
+  color: #fff;               /* text turns white */
+  background-color: #333; /* lively blue background */
+  border-radius: 4px;        /* rounded corners */
+  transform: scale(1.05);    /* subtle zoom effect */
+}
         
     </style>
 </head>
@@ -166,14 +181,16 @@
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-800">
   <div class="max-w-6xl mx-auto px-6 py-4">
     <div class="flex items-center justify-between">
-      <div id="typed-menu-name" class="text-xl font-bold text-teal"></div>
+      <div class="min-w-[220px] flex-shrink-0 text-xl font-bold text-teal">
+                    <span id="portfolio-name-animate"></span>
+                </div>
 
       <div class="hidden md:flex flex-none items-center gap-8">
-        <a href="#home" class="menu-link">Home</a>
-        <a href="#skills" class="menu-link">Skills</a>
-        <a href="#projects" class="menu-link">Projects</a>
-        <a href="#achievements" class="menu-link">Achievements</a>
-        <a href="portfolio.html" class="menu-link">Portfolio</a>
+        <a href="#home" class="hover:text-teal menu-link">Home</a>
+        <a href="#skills" class="hover:text-teal menu-link">Skills</a>
+        <a href="#projects" class="hover:text-teal menu-link">Projects</a>
+        <a href="#achievements" class="hover:text-teal menu-link">Achievements</a>
+        <a href="portfolio.html" class="hover:text-teal menu-link">Portfolio</a>
         <a href="contact.html" class="btn btn-primary contact-btn">Contact</a>
       </div>
 
@@ -368,7 +385,7 @@
             <div class="text-center mb-16 scroll-reveal">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #ceb007;">Featured Projects</h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Innovative solutions and achievements in machine learning and software development
+                    Innovative solutions and achievements in machine learning and application development
                 </p>
             </div>
             
@@ -494,7 +511,7 @@
                     <a href="contact.html" class="btn btn-primary">
                         Start a Conversation
                     </a>
-                    <a href="https://www.linkedin.com/in/specialist-abdullah-almousa-a76562237" target="_blank" class="border border-teal text-teal hover:bg-teal hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                    <a href="https://www.linkedin.com/in/abdullah-almousa-a76562237" target="_blank" class="border border-teal text-teal hover:bg-teal hover:text-white px-8 py-3 rounded-lg font-semibold transition-all">
                         Connect on LinkedIn
                     </a>
                 </div>
@@ -505,7 +522,7 @@
     <footer class="py-8 border-t border-gray-800">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <p class="text-gray-400">
-                © 2025 Abdullah Almousa. Built with passion for machine learning and AI innovation.
+                © 2025 Abdullah Almousa. All rights reserved.
             </p>
         </div>
     </footer>

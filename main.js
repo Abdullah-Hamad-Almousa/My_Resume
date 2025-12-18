@@ -7,15 +7,46 @@ let skillsChart;
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    initializeNeuralBackground();
+    
+    // 1. Neural Background: Only init if container exists AND p5 is loaded
+    if (document.getElementById('neural-bg') && typeof p5 !== 'undefined') {
+        initializeNeuralBackground();
+    }
+
+    // 2. Typewriter for INDEX page (Home + Menu)
     initializeTypewriter();
-    initializePythonChart();
-    initializeKotlinChart();
+
+    // 3. Typewriter for PORTFOLIO page (Menu only)
+    initializePortfolioName();
+
+    // 4. Charts: Only init if their containers exist
+    if (document.getElementById('skills-chart')) initializePythonChart();
+    if (document.getElementById('skills-chart-kotlin')) initializeKotlinChart();
+    
+    // 5. Shared Utilities
     initializeScrollReveal();
     initializeMobileMenu();
     initializeSmoothScrolling();
     initializeSkillBars();
 });
+
+// --- NEW FUNCTION FOR PORTFOLIO.HTML ---
+function initializePortfolioName() {
+    const portfolioName = document.querySelector('#portfolio-name-animate');
+    
+    if (portfolioName) {
+        portfolioName.innerHTML = ''; 
+        new Typed('#portfolio-name-animate', {
+            strings: ['Abdullah Almousa'],
+            typeSpeed: 70,      // Speed of typing
+            backSpeed: 50,      // SPEED OF DELETING (Increase this to make it slower)
+            backDelay: 2000,    // How long to wait before starting to delete (2 seconds)
+            showCursor: true,   // Shows the cursor
+            cursorChar: '|',    // The cursor symbol
+            loop: true
+        });
+    }
+}
 
 // Neural Network Background using p5.js
 function initializeNeuralBackground() {
@@ -78,30 +109,22 @@ function initializeNeuralBackground() {
     });
 }
 
-// UPDATED: Typewriter effect handling both Top Menu and Hero Section
+// Typewriter effect handling INDEX PAGE (Menu + Hero)
 function initializeTypewriter() {
-    // 1. Clear elements first to prevent "ghost" text
     const menuNameElement = document.querySelector('#typed-menu-name');
     const heroNameElement = document.querySelector('#typed-name');
     const titleElement = document.querySelector('#typed-title');
     
+    // Safety: Clear elements only if they exist
     if (menuNameElement) menuNameElement.innerHTML = '';
     if (heroNameElement) heroNameElement.innerHTML = '';
     if (titleElement) titleElement.innerHTML = '';
 
-    // 2. Initialize Top Menu Name
-    // Note: showCursor is false here to fix alignment issues
-    if (document.querySelector('#typed-menu-name')) {
-        new Typed('#typed-menu-name', {
-            strings: ['Abdullah Almousa'],
-            typeSpeed: 50,
-            showCursor: false, 
-            loop: false
-        });
-    }
+    // Initialize Top Menu Name (Index Page Only)
 
-    // 3. Initialize Big Hero Name
-    if (document.querySelector('#typed-name')) {
+
+    // Initialize Big Hero Name (Index Page Only)
+    if (heroNameElement) {
         new Typed('#typed-name', {
             strings: ['Abdullah Almousa'],
             typeSpeed: 100,
@@ -110,9 +133,9 @@ function initializeTypewriter() {
             showCursor: true,
             cursorChar: '|',
             onComplete: function() {
-                // 4. Start subtitle after name is finished
-                setTimeout(() => {
-                    if (document.querySelector('#typed-title')) {
+                // Start subtitle ONLY if element exists
+                if (titleElement) {
+                    setTimeout(() => {
                         new Typed('#typed-title', {
                             strings: ['Machine Learning Practitioner', 'AI Specialist', 'Data Science', 'Android App developer'],
                             typeSpeed: 80,
@@ -122,16 +145,18 @@ function initializeTypewriter() {
                             showCursor: true,
                             cursorChar: '|'
                         });
-                    }
-                }, 200);
+                    }, 200);
+                }
             }
         });
     }
 }
 
-// Skills radar chart
+// Skills radar chart (Python)
 function initializePythonChart() {
     const chartDom = document.getElementById('skills-chart');
+    if (!chartDom) return; // Exit if not found
+    
     skillsChart = echarts.init(chartDom);
     
     const option = {
@@ -191,14 +216,16 @@ function initializePythonChart() {
     
     skillsChart.setOption(option);
     
-    // Resize chart on window resize
     window.addEventListener('resize', function() {
-        skillsChart.resize();
+        if (skillsChart) skillsChart.resize();
     });
 }
 
+// Skills radar chart (Kotlin)
 function initializeKotlinChart() {
     const chartDom = document.getElementById('skills-chart-kotlin');
+    if (!chartDom) return; // Exit if not found
+
     skillsChart = echarts.init(chartDom);
 
     const option = {
@@ -259,7 +286,7 @@ function initializeKotlinChart() {
     skillsChart.setOption(option);
 
     window.addEventListener('resize', function() {
-        skillsChart.resize();
+        if (skillsChart) skillsChart.resize();
     });
 }
 
@@ -278,7 +305,6 @@ function initializeScrollReveal() {
         });
     }, observerOptions);
     
-    // Observe all scroll-reveal elements
     document.querySelectorAll('.scroll-reveal').forEach(el => {
         observer.observe(el);
     });
@@ -287,11 +313,8 @@ function initializeScrollReveal() {
 // Mobile menu functionality
 function initializeMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const nav = document.querySelector('nav');
-    
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', function() {
-            // Create mobile menu if it doesn't exist
             let mobileMenu = document.getElementById('mobile-menu');
             if (!mobileMenu) {
                 mobileMenu = document.createElement('div');
@@ -310,7 +333,6 @@ function initializeMobileMenu() {
                 document.body.appendChild(mobileMenu);
             }
             
-            // Toggle menu
             if (mobileMenu.style.transform === 'translateY(0px)') {
                 mobileMenu.style.transform = 'translateY(-100%)';
             } else {
@@ -327,7 +349,7 @@ function initializeSmoothScrolling() {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const offsetTop = target.offsetTop - 100; // Account for fixed header
+                const offsetTop = target.offsetTop - 100;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -340,17 +362,18 @@ function initializeSmoothScrolling() {
 // Animate skill bars on scroll
 function initializeSkillBars() {
     const skillBars = document.querySelectorAll('.bg-teal, .bg-gold');
-    
     const animateSkillBars = function() {
         skillBars.forEach(bar => {
             const rect = bar.getBoundingClientRect();
             if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const targetWidth = bar.dataset.width;   // always available
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.transition = 'width 1.5s ease-out';
-                    bar.style.width = targetWidth;
-                }, 200);
+                const targetWidth = bar.dataset.width;
+                if (targetWidth) {
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.transition = 'width 1.5s ease-out';
+                        bar.style.width = targetWidth;
+                    }, 200);
+                }
             }
         });
     };
@@ -359,33 +382,34 @@ function initializeSkillBars() {
     setTimeout(animateSkillBars, 1000);
 }
 
-// Counter animation for statistics
+// Counter animation
 function animateCounters() {
     const counters = document.querySelectorAll('.gradient-text');
-    
     counters.forEach(counter => {
-        const target = parseInt(counter.textContent);
+        const targetText = counter.textContent;
+        const target = parseInt(targetText);
+        if (isNaN(target)) return;
+
         const increment = target / 100;
         let current = 0;
         
         const updateCounter = () => {
             if (current < target) {
                 current += increment;
-                counter.textContent = Math.ceil(current) + (counter.textContent.includes('%') ? '%' : counter.textContent.includes('+') ? '+' : '');
+                const suffix = targetText.replace(/[0-9]/g, '');
+                counter.textContent = Math.ceil(current) + suffix;
                 requestAnimationFrame(updateCounter);
             } else {
-                counter.textContent = target + (counter.textContent.includes('%') ? '%' : counter.textContent.includes('+') ? '+' : '');
+                counter.textContent = targetText;
             }
         };
-        
         updateCounter();
     });
 }
 
-// Add hover effects to cards
+// Hover effects
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.hover-lift');
-    
     cards.forEach(card => {
         card.addEventListener('mouseenter', function() {
             anime({
@@ -395,7 +419,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 easing: 'easeOutQuad'
             });
         });
-        
         card.addEventListener('mouseleave', function() {
             anime({
                 targets: this,
@@ -407,10 +430,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Performance optimization - lazy load images
+// Lazy load
 function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
-    
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -421,44 +443,16 @@ function lazyLoadImages() {
             }
         });
     });
-    
     images.forEach(img => imageObserver.observe(img));
 }
 
-// Initialize lazy loading
 document.addEventListener('DOMContentLoaded', lazyLoadImages);
-
-// Add loading animation
 window.addEventListener('load', function() {
     document.body.classList.add('loaded');
-    
-    // Animate counters after page load
     setTimeout(animateCounters, 2000);
 });
 
-// Handle form submissions (for future contact form)
-function handleFormSubmission(form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
-            // Show success message
-            showNotification('Message sent successfully!', 'success');
-            form.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    });
-}
-
-// Notification system
+// Notifications
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white ${
@@ -469,7 +463,6 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    // Animate in
     anime({
         targets: notification,
         translateX: [300, 0],
@@ -478,7 +471,6 @@ function showNotification(message, type = 'info') {
         easing: 'easeOutQuad'
     });
     
-    // Remove after 3 seconds
     setTimeout(() => {
         anime({
             targets: notification,
@@ -493,139 +485,39 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Export functions for use in other files
-window.CVApp = {
-    showNotification,
-    handleFormSubmission,
-    animateCounters
-};
-
+// Work Time Logic
 function showWorkTime() {
-  // Work hours (24-hour format)
   const workStart = 12; // 12 PM
   const workEnd = 18;   // 6 PM
   const now = new Date();
-
-  // Create Date objects for today's work hours
   const start = new Date();
   start.setHours(workStart, 0, 0, 0);
-
   const end = new Date();
   end.setHours(workEnd, 0, 0, 0);
 
-  // If it's already past 6 PM, set the schedule to tomorrow
   if (now > end) {
     start.setDate(start.getDate() + 1);
     end.setDate(end.getDate() + 1);
   }
 
-  // Format times in the user’s locale
   const options = { hour: '2-digit', minute: '2-digit' };
   const startStr = start.toLocaleTimeString([], options);
   const endStr = end.toLocaleTimeString([], options);
 
-  // Show work hours
   const workTimeElement = document.getElementById('work-time');
   if (workTimeElement) {
       workTimeElement.textContent = `Work time: ${startStr} → ${endStr} (your local time)`;
   }
-
-  // Calculate relative message
-  const diffStart = start - now;
-  const diffEnd = end - now;
-  let message;
-
-  if (diffStart > 0) {
-    const hours = Math.floor(diffStart / 3600000);
-    const minutes = Math.floor((diffStart % 3600000) / 60000);
-    message = `Work starts in ${hours}h ${minutes}m`;
-  } else if (diffEnd > 0) {
-    const hours = Math.floor(diffEnd / 3600000);
-    const minutes = Math.floor((diffEnd % 3600000) / 60000);
-    message = `Work ends in ${hours}h ${minutes}m`;
-  } else {
-    message = 'Work time is over for today';
-  }
-  
-  const workStatusElement = document.getElementById('work-status');
-  if (workStatusElement) {
-      workStatusElement.textContent = message;
-  }
 }
-
-// Initial call
 showWorkTime();
-
-// Optional: update every minute
 setInterval(showWorkTime, 60000);
 
-function showWorkSchedule() {
-  const now = new Date();
-  const day = now.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-  const hour = now.getHours() + now.getMinutes() / 60;
-
-  const workDays = [0, 1, 2, 3, 4]; // Sunday–Thursday
-  const startHour = 12; // 12 PM
-  const endHour = 18;   // 6 PM
-
-  // Always show this schedule text
-  const workHoursElement = document.getElementById('work-hours');
-  if (workHoursElement) {
-      workHoursElement.textContent = 'Sunday - Thursday: 12:00 PM - 6:00 PM';
-  }
-
-  // Check if user is in working hours
-  let statusText;
-  if (workDays.includes(day) && hour >= startHour && hour < endHour) {
-    const hoursLeft = Math.floor(endHour - hour);
-    const minutesLeft = Math.floor((endHour - hour - hoursLeft) * 60);
-    statusText = `🟢 Open now — closes in ${hoursLeft}h ${minutesLeft}m`;
-  } else {
-    // Calculate next opening day/time
-    let nextDay = day;
-    let daysToAdd = 0;
-
-    // If it’s Friday (5) or Saturday (6), next open is Sunday
-    if (day >= 5) {
-      daysToAdd = (7 - day); // Go to Sunday
-    } else if (hour >= endHour) {
-      daysToAdd = 1; // Tomorrow
-    }
-
-    nextDay += daysToAdd;
-    const nextOpen = new Date(now);
-    nextOpen.setDate(now.getDate() + daysToAdd);
-    nextOpen.setHours(startHour, 0, 0, 0);
-
-    const timeString = nextOpen.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    statusText = `🔴 Closed now — opens ${daysToAdd === 0 ? 'later today' : 'next workday'} at ${timeString}`;
-  }
-
-  const workStatusElement = document.getElementById('work-status');
-  if (workStatusElement) {
-      workStatusElement.textContent = statusText;
-  }
-}
-
-// Run once and update every minute
-showWorkSchedule();
-setInterval(showWorkSchedule, 60000);
-
+// Contact Form
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
       const form = e.target;
-      const submitText = document.getElementById('submit-text');
-      const submitLoading = document.getElementById('submit-loading');
-      
-      if (submitText) submitText.classList.add('hidden');
-      if (submitLoading) submitLoading.classList.remove('hidden');
       
       try {
         const formData = new FormData(form);
@@ -644,8 +536,5 @@ if (contactForm) {
       } catch (error) {
         alert('⚠️ Network error. Please try again.');
       }
-
-      if (submitText) submitText.classList.remove('hidden');
-      if (submitLoading) submitLoading.classList.add('hidden');
     });
 }
